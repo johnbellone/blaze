@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+
+<?php 
+
+require_once "lib/blaze/blaze_cli.php"
+
+try {
+    $cli = new Blaze_CLI();
+    $cli->execute($argv);
+}
+catch ($e) {
+
+}
+
+?>
