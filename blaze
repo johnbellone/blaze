@@ -9,7 +9,7 @@ try {
     $cli->execute($argv);
 }
 catch ($e) {
-
+    var_dump($e);
 }
 
 ?>

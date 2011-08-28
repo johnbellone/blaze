@@ -1,8 +1,11 @@
 <?php 
 
-require_once dirname(__FILE__) . "blaze_utils.php"
-
 define('BLAZE_VERSION', '0.0.1');
+! defined('BLAZE_PATH') AND define('BLAZE_PATH', dirname(__FILE__))
+
+require_once BLAZE_PATH . "blaze_utils.php"
+require_once BLAZE_PATH . "blaze_loader.php"
+require_once BLAZE_PATH . "blaze_exception.php"
 
 // @brief This object does the heavy lifting regarding any CLI specific processing
 // that needs to be done.
@@ -15,28 +18,20 @@ class Blaze_CLI
         }
     }
 
-    public function execute($config) {
-        $loader = new Blaze_Loader();
-        $engine = null, $processor = null;
+    public function execute($arguments) {
+        if (!isset($arguments[0])) {
+            throw new Blaze_Exception("Invaild argument count.");
+        }
+
+        $command = $arguments[0];
+        $engine = null;
 
         if (isset($config["engine"])) {
-            $engine = $loader->engine($config["engine"]);
-        }
-        else {
-
+            $engine = $config["engine"];
         }
 
-        if ($config["help"] === true) {
-            $processor = $loader->processor("help");
-        }
-        else if (isset($config["processor"])) {
-            $processor = $loader->processor($config["processor"]);
-        }
-        else {
-
-        }
-
-        $engine->execute($processor);
+        $loader = new Blaze_Loader($engine);
+        $loader->execute($command, $arguments);
     }
 
     // @brief Helper method which provides an easily mechanism for determining if
