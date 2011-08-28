@@ -1,4 +1,4 @@
-<?php
+<?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
 class Blaze_Utils {
     // @brief Method performs your basic argument parsing.

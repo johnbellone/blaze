@@ -1,6 +1,6 @@
 <?php
 
-require_once BLAZE_PATH . "blaze_exception.php"
+require_once "blaze_exception.php"
 
 class Blaze_Engine
 {

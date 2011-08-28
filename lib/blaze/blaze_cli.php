@@ -1,11 +1,10 @@
-<?php 
-
+<?php
 define('BLAZE_VERSION', '0.0.1');
 ! defined('BLAZE_PATH') AND define('BLAZE_PATH', dirname(__FILE__))
 
-require_once BLAZE_PATH . "blaze_utils.php"
-require_once BLAZE_PATH . "blaze_loader.php"
-require_once BLAZE_PATH . "blaze_exception.php"
+require_once "blaze_utils.php"
+require_once "blaze_loader.php"
+require_once "blaze_exception.php"
 
 // @brief This object does the heavy lifting regarding any CLI specific processing
 // that needs to be done.
