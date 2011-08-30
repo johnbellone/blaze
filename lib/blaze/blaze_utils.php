@@ -45,5 +45,3 @@ class Blaze_Utils {
         return $output;
     }
 }
-
-?>

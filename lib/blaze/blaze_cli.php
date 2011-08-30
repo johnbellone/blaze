@@ -1,10 +1,9 @@
-<?php
+<?php 
 define('BLAZE_VERSION', '0.0.1');
-! defined('BLAZE_PATH') AND define('BLAZE_PATH', dirname(__FILE__))
+! defined('BLAZE_PATH') AND define('BLAZE_PATH', dirname(__FILE__) . '/');
 
-require_once "blaze_utils.php"
-require_once "blaze_loader.php"
-require_once "blaze_exception.php"
+require_once "blaze_utils.php";
+require_once "blaze_loader.php";
 
 // @brief This object does the heavy lifting regarding any CLI specific processing
 // that needs to be done.
@@ -13,13 +12,13 @@ class Blaze_CLI
 {
     public function __construct() {
         if (! self::is_cli()) {
-            throw new Blaze_Exception("Must be running in PHP-CLI to execute this script.");
+            throw new Exception("Must be running in PHP-CLI to execute this script.");
         }
     }
 
     public function execute($arguments) {
         if (!isset($arguments[0])) {
-            throw new Blaze_Exception("Invaild argument count.");
+            throw new Exception("Invaild argument count.");
         }
 
         $command = $arguments[0];
@@ -58,5 +57,3 @@ class Blaze_CLI
     }
 
 }
-
-?>

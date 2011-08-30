@@ -1,24 +1,14 @@
-<?php
-
-require_once "blaze_exception.php"
+<?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
 class Blaze_Engine
 {
+    protected $name = "dummy";
+    
     public function __construct() {
 
     }
 
-    public function execute($method, $arguments) {
-
-    }
-
-    public function help() {
-
-    }
-
-    public function generate() {
-
+    public function name() {
+        return $this->name;
     }
 }
-
-?>

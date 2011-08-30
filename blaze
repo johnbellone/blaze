@@ -1,15 +1,15 @@
 #!/usr/bin/env php
 
 <?php 
-! defined('TOOLS_PATH') AND define('TOOLS_PATH', dirname(__FILE__))
+! defined('TOOLS_PATH') AND define('TOOLS_PATH', dirname(__FILE__) . '/');
 
-require_once "lib/blaze/blaze_cli.php"
+require_once "lib/blaze/blaze_cli.php";
 
 try {
     $cli = new Blaze_CLI();
     $cli->execute($argv);
 }
-catch ($e) {
+catch (Exception $e) {
     var_dump($e);
 }
 
