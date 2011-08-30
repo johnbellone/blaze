@@ -21,13 +21,14 @@ class Blaze_CLI
             throw new Exception("Invaild argument count.");
         }
 
-        $command = $arguments[0];
+        array_shift($arguments);
+        $command = array_shift($arguments);
         $engine = null;
 
         if (isset($config["engine"])) {
             $engine = $config["engine"];
         }
-
+        
         $loader = new Blaze_Loader($engine);
         $loader->execute($command, $arguments);
     }
