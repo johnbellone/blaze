@@ -1,6 +1,7 @@
 <?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
-class Blaze_Utils {
+class Blaze_Utils
+{
     // @brief Method performs your basic argument parsing.
     // @param argv Argument array from the command line to parse.
     // @return Array with output arguments from input parameter.
@@ -10,34 +11,45 @@ class Blaze_Utils {
         array_shift($argv); 
         $output = array();
 
-        foreach ($argv as $arg) {
-            if (substr($arg, 0, 2) === '--') {
+        foreach ($argv as $arg)
+        {
+            if (substr($arg, 0, 2) === '--')
+            {
                 $eq = strpos($arg, '=');
                 
-                if ($eq !== false) {
+                if ($eq !== false)
+                {
                     $output[substr($arg, 2, $eq-2)] = substr($arg, $eq+1);
                 }
-                else {
+                else
+                {
                     $k = substr($arg, 2);
 
-                    if (!isset($output[$k])) {
+                    if (!isset($output[$k]))
+                    {
                         $output[$k] = true;
                     }
                 }
             }
-            else if (substr($arg, 0, 1) === '-') {
-                if (substr($arg, 2, 1) === '=') {
+            else if (substr($arg, 0, 1) === '-')
+            {
+                if (substr($arg, 2, 1) === '=')
+                {
                     $output[substr($arg, 1, 1)] = substr($arg, 3); 
                 }
-                else {
-                    foreach (str_split(substr($arg, 1)) as $k) {
-                        if (!isset($output[$k])) {
+                else
+                {
+                    foreach (str_split(substr($arg, 1)) as $k)
+                    {
+                        if (!isset($output[$k]))
+                        {
                             $output[$k] = true;
                         }
                     }
                 }
             }
-            else {
+            else
+            {
                 $output[] = $arg;
             }
         }

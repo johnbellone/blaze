@@ -2,57 +2,85 @@
 
 class Blaze_Loader 
 {
-    protected $_eg_classes = array();
+    protected $_classes = array();
 	protected $adapter = null;
 
-	protected function load_engine($class) {
-        if (! array_key_exists($class, $this->_eg_classes)) {
-            if (count($this->_eg_classes) > 0) {
+	protected function load_engine($class)
+    {
+        if (! array_key_exists($class, $this->_classes))
+        {
+            if (count($this->_classes) > 0)
+            {
                 return false;
             }
         
             $engine_dir = dirname(__FILE__) . "/engines";
             $reg = "/engine_([a-zA-Z0-9]+).php/";
             
-            if (is_dir($engine_dir) && ($dh = opendir($engine_dir))) {
-                while (($file = readdir($dh)) !== false) {
-                    if (preg_match($reg, $file, $matches) > 0) {
+            if (is_dir($engine_dir) && ($dh = opendir($engine_dir)))
+            {
+                while (($file = readdir($dh)) !== false)
+                {
+                    if (preg_match($reg, $file, $matches) > 0)
+                    {
                         include_once($engine_dir . '/' . $file);
 
                         $klass = "Engine_" . $matches[1];
-                        $this->_eg_classes[$klass] = new $klass();
+                        $this->_classes[$klass] = new $klass();
                     }
                 }
             }
         }
         
-        if (! array_key_exists($class, $this->_eg_classes)) {
+        if (! array_key_exists($class, $this->_classes))
+        {
             return false;
         }
         
-        return $this->_eg_classes[$class];
+        return $this->_classes[$class];
 	}
 
-	public function __construct($class) {
-        if (($this->adapter = $this->load_engine($class)) === false) {
-            foreach ($this->_eg_classes as $engine) {
-                if ($engine->is_framework()) {
+	public function __construct($class)
+    {
+        if (($this->adapter = $this->load_engine($class)) === false)
+        {
+            foreach ($this->_classes as $engine)
+            {
+                if ($engine->is_framework())
+                {
                     $this->adapter = $engine;
                     break;
                 }
             }
         }
 
-        if (!isset($this->adapter)) {
+        if (!isset($this->adapter))
+        {
             throw new Exception("Unable to determine engine");
         }
 	}
 
-	public function execute($method, $arguments) {
-        if (!method_exists($this->adapter, $method)) {
+	public function execute($method, $arguments, $config)
+    {
+        if ($config["help"] === true)
+        {
+            $this->help();
             return false;
         }
-        
-		return $this->adapter->{$method}($arguments);
+                       
+        if (method_exists($this->adapter, $method))
+        {
+            return $this->adapter->{$method}($arguments);
+        }
+
+        return $this->adapter->execute($method, $arguments);
 	}
+
+    public function help()
+    {
+        if (method_exists($this->adapter, "help") == true)
+        {
+            $this->adapter->help();
+        }
+    }
 }
