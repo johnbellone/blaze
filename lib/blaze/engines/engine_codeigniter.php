@@ -6,13 +6,10 @@ require_once BLAZE_PATH . "blaze_engine.php";
 
 class Engine_codeigniter extends Blaze_Engine
 {
+    private $shortcuts = array("g" => "generate");
+    
     public static function is_framework()
     {
-        if (!file_exists(CODEIGNITER_PATH))
-        {
-            return false;
-        }
-
         return is_file(CODEIGNITER_PATH . "/system/core/CodeIgniter.php");
     }
 
@@ -28,12 +25,16 @@ class Engine_codeigniter extends Blaze_Engine
 
     public function execute($method, $arguments)
     {
+        if (array_key_exists($this->shortcuts, $method))
+        {
+            $method = $this->shortcuts[$method];
+        }
+        
         if (($processor = parent::load_processor($method)) == false)
         {
             throw new Exception("Invalid commend. Please check help.");
-            return false;
         }
-
+        
         return $processor->execute($arguments);
     }
 }
