@@ -2,11 +2,13 @@
 
 class Blaze_Processor
 {
-    public function __construct() {
+    public function __construct()
+    {
 
     }
     
-    public function help() {
+    public function help()
+    {
 
     }
 }

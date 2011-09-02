@@ -10,51 +10,62 @@ require_once "blaze_loader.php";
 // @link http://php.net/manual/en/features.commandline.php
 class Blaze_CLI 
 {
-    public function __construct() {
-        if (! self::is_cli()) {
-            throw new Exception("Must be running in PHP-CLI to execute this script.");
-        }
-    }
+	public function __construct()
+	{
+		if (! self::is_cli())
+		{
+			throw new Exception("Must be running in PHP-CLI to execute this script.");
+		}
+	}
 
-    public function execute($arguments) {
-        if (!isset($arguments[0])) {
-            throw new Exception("Invaild argument count.");
-        }
+	public function execute($arguments)
+    {
+		if (!isset($arguments[0]))
+        {
+			throw new Exception("Invaild argument count.");
+		}
 
-        array_shift($arguments);
-        $command = array_shift($arguments);
-        $engine = null;
-
-        if (isset($config["engine"])) {
-            $engine = $config["engine"];
-        }
+        $config = Blaze_Utils::parse_arguments($arguments);        
+		array_shift($arguments);
+		$command = array_shift($arguments);
         
-        $loader = new Blaze_Loader($engine);
-        $loader->execute($command, $arguments);
-    }
+		$engine = null;
 
-    // @brief Helper method which provides an easily mechanism for determining if
-    // we are running in the CLI or via some web server.
-    // @return boolean Returns true if script is executing on the CLI, otherwise
-    // false.
-    private static function is_cli() {
-        if (!defined('STDIN') && self::is_cgi()) {
-            if (getenv('TERM')) {
-                return true;
-            }
+		if (isset($config["engine"]))
+        {
+			$engine = $config["engine"];
+		}
+		
+		$loader = new Blaze_Loader($engine);
+		$loader->execute($command, $arguments, $config);
+	}
 
-            return false;
-        }
+	// @brief Helper method which provides an easily mechanism for determining if
+	// we are running in the CLI or via some web server.
+	// @return boolean Returns true if script is executing on the CLI, otherwise
+	// false.
+	private static function is_cli()
+    {
+		if (!defined('STDIN') && self::is_cgi())
+        {
+			if (getenv('TERM'))
+            {
+				return true;
+			}
 
-        return defined('STDIN');
-    }
+			return false;
+		}
 
-    private static function is_cgi() {
-        if (substr(PHP_SAPI, 0, 3) == 'cgi') {
-            return true;
-        }
-        
-        return false;
-    }
+		return defined('STDIN');
+	}
 
+	private static function is_cgi()
+    {
+		if (substr(PHP_SAPI, 0, 3) == 'cgi')
+        {
+			return true;
+		}
+		
+		return false;
+	}
 }

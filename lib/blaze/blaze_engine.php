@@ -3,12 +3,31 @@
 class Blaze_Engine
 {
     protected $name = "dummy";
-    
-    public function __construct() {
 
+    protected function load_processor($class)
+    {
+        $class = strtolower($class);
+        $processor_dir = dirname(__FILE__) . '/' . $this->name;
+        $filename = $processor_dir . '/' . $this->name . '_' . $class . '.php';
+
+        if (is_file($filename))
+        {
+            include_once($filename);
+
+            $klass = ucfirst($class) . "_" . $class;
+            return new $klass();
+        }
+
+        return false;
+    }
+    
+    public function __construct()
+    {
+        
     }
 
-    public function name() {
+    public function name()
+    {
         return $this->name;
     }
 }
