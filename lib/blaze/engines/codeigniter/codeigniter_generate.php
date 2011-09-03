@@ -1,6 +1,7 @@
 <?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
 require_once BLAZE_PATH . "blaze_processor.php";
+require_once BLAZE_PATH . "blaze_template.php";
 
 /*
  * Generate processor for CodeIgniter engine.
@@ -11,13 +12,13 @@ require_once BLAZE_PATH . "blaze_processor.php";
  */
 class Codeigniter_generate extends Blaze_Processor
 {
-    protected function construct_method_string($tmpl_dir, $arguments)
+    protected function construct_method_string($template, $arguments)
     {
         $output = "";
         
         if (count($arguments) >= 0)
         {
-            $method_tmpl = file_get_contents($tmpl_dir . "method.tmpl");                             
+            $method_tmpl = $template->load("method.tmpl");
             $reg = "/^([a-zA-Z0-9])+/";
         
             while (($arg = array_shift($arguments)) !== null)
@@ -38,6 +39,26 @@ class Codeigniter_generate extends Blaze_Processor
 
     }
 
+    public function model($arguments)
+    {
+        if (count($arguments) == 0)
+        {
+            return false;
+        }
+
+        $template = new Blaze_Template(dirname(__FILE__) . "/templates/");
+        $model_tmpl = $template->load("model.tmpl");
+
+                
+        
+        
+        // Minimum required is just the class name to generate the file.
+        $class_tolower = strtolower(array_shift($arguments));
+        $class_ucfirst = ucfirst($class_tolower);
+        $filename = CODEIGNITER_PATH . "/application/controllers/";
+                
+    }
+    
     public function controller($arguments)
     {
         if (count($arguments) == 0)
@@ -64,18 +85,17 @@ class Codeigniter_generate extends Blaze_Processor
         }
         
         // Load up the templates.
-        $tmpl_dir = dirname(__FILE__) . "/templates/";
-        $class_tmpl = file_get_contents($tmpl_dir . "controller.tmpl");
+        $template = new Blaze_Template(dirname(__FILE__) . "/templates/");
+        $class_tmpl = $template->load("controller.tmpl");
 
         // Parse array for methods and load their template.
-        $method_output = $this->construct_method_string($tmpl_dir, $arguments);
+        $method_output = $this->construct_method_string($template, $arguments);
 
         $inputs = array("%CLASS_UCFIRST%", "%METHOD_OUTPUT%", "%CLASS_TOLOWER%");
         $outputs = array($class_ucfirst, $method_output, $class_tolower);
-        $output = str_replace($inputs, $outputs, $class_tmpl);
-
         $filename .= $class_tolower . ".php";
-        file_put_contents($filename, $output);
+
+        $template->save($filename, $class_tmpl, $inputs, $outputs);
 
         return true;
     } 
