@@ -1,5 +1,13 @@
 <?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
+/*
+ * Engine class loader.
+ *
+ * Object handles class loading and framework enumeration.
+ *
+ * @package Blaze
+ * @author John Bellone
+ */
 class Blaze_Loader 
 {
     protected $_classes = array();
@@ -15,7 +23,7 @@ class Blaze_Loader
             }
         
             $engine_dir = dirname(__FILE__) . "/engines";
-            $reg = "/engine_([a-zA-Z0-9]+).php/";
+            $reg = "/^engine_([a-zA-Z0-9]+).php/";
             
             if (is_dir($engine_dir) && ($dh = opendir($engine_dir)))
             {

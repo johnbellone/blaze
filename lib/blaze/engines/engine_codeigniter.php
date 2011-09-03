@@ -4,6 +4,13 @@
 
 require_once BLAZE_PATH . "blaze_engine.php";
 
+/*
+ * Engine for Blaze to support CodeIgniter framework.
+ *
+ * @package Blaze
+ * @subpackage codeigniter
+ * @author John Bellone
+ */
 class Engine_codeigniter extends Blaze_Engine
 {
     private $shortcuts = array("g" => "generate");
@@ -20,21 +27,22 @@ class Engine_codeigniter extends Blaze_Engine
 
     public function help()
     {
-
+        
     }
 
     public function execute($method, $arguments)
     {
-        if (array_key_exists($this->shortcuts, $method))
+        if (array_key_exists($method, $this->shortcuts))
         {
             $method = $this->shortcuts[$method];
         }
-        
-        if (($processor = parent::load_processor($method)) == false)
+
+        if (($processor = parent::load_class($method)) == false)
         {
-            throw new Exception("Invalid commend. Please check help.");
+            $this->help();
+            return false;
         }
-        
+
         return $processor->execute($arguments);
     }
 }

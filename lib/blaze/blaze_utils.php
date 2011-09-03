@@ -1,10 +1,13 @@
 <?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
+/*
+ * Utility object.
+ *
+ * @package Blaze
+ * @author John Bellone
+ */
 class Blaze_Utils
 {
-    // @brief Method performs your basic argument parsing.
-    // @param argv Argument array from the command line to parse.
-    // @return Array with output arguments from input parameter.
     // @link http://pwfisher.com/nucleus/index.php?itemid=45
     public static function parse_arguments($argv) 
     {

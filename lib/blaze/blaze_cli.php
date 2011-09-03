@@ -5,9 +5,14 @@ define('BLAZE_VERSION', '0.0.1');
 require_once "blaze_utils.php";
 require_once "blaze_loader.php";
 
-// @brief This object does the heavy lifting regarding any CLI specific processing
-// that needs to be done.
-// @link http://php.net/manual/en/features.commandline.php
+/*
+ * Blaze command line interface object.
+ *
+ * Main application object that needs to be bootstraped.
+ *
+ * @package Blaze
+ * @author John Bellone
+ */
 class Blaze_CLI 
 {
 	public function __construct()
