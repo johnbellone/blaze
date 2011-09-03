@@ -49,6 +49,19 @@ class Codeigniter_generate extends Blaze_Processor
         // Minimum required is just the class name to generate the file.
         $class_tolower = strtolower(array_shift($arguments));
         $class_ucfirst = ucfirst($class_tolower);
+        $filename = CODEIGNITER_PATH . "/application/controllers/";
+        
+        $reg = "/^([a-z]+\/)+/";
+        if (preg_match($reg, $class_tolower, $m))
+        {
+            $filename .= $m[0];
+            @mkdir($filename, 0755);
+
+            $reg = "/[a-z0-9_]+$/";
+            preg_match($reg, $class_tolower, $m);
+            $class_tolower = $m[0];
+            $class_ucfirst = ucfirst($class_tolower);
+        }
         
         // Load up the templates.
         $tmpl_dir = dirname(__FILE__) . "/templates/";
@@ -61,11 +74,9 @@ class Codeigniter_generate extends Blaze_Processor
         $outputs = array($class_ucfirst, $method_output, $class_tolower);
         $output = str_replace($inputs, $outputs, $class_tmpl);
 
-        $filename = $class_tolower . ".php";
-        $output_path = CODEIGNITER_PATH . "/application/controllers/" . $filename;
+        $filename .= $class_tolower . ".php";
+        file_put_contents($filename, $output);
 
-        file_put_contents($output_path, $output);
-        
         return true;
     } 
     
