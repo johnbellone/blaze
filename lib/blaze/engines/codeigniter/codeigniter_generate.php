@@ -6,6 +6,7 @@ require_once BLAZE_PATH . "blaze_processor.php";
  * Generate processor for CodeIgniter engine.
  *
  * @package Blaze
+ * @subpackage codeigniter
  * @author John Bellone
  */
 class Codeigniter_generate extends Blaze_Processor
@@ -13,24 +14,6 @@ class Codeigniter_generate extends Blaze_Processor
     public function __construct()
     {
 
-    }
-
-    public function execute($arguments)
-    {
-        if (count($arguments) == 0)
-        {
-            $this->help();
-            return false;
-        }
-
-        $method = array_shift($arguments);
-
-        if (method_exists($this, $method))
-        {
-            $this->{$method}($arguments);
-        }
-
-        return false;
     }
 
     public function controller($arguments)
@@ -43,10 +26,6 @@ class Codeigniter_generate extends Blaze_Processor
 
         // Minimum required is just the class name to generate the file.
         $klass = array_shift($arguments);
-
-
-
-        
     } 
     
     public function help()

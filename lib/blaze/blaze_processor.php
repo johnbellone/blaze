@@ -8,4 +8,18 @@
  */
 class Blaze_Processor
 {
+    public function execute($arguments)
+    {
+        if (count($arguments) > 0)
+        {
+            $method = array_shift($arguments);
+            
+            if (method_exists($this, $method))
+            {
+                return $this->{$method}($arguments);
+            }
+        }
+
+        return false;
+    }
 }
