@@ -8,7 +8,7 @@ require_once BLAZE_PATH . "blaze_template.php";
  *
  * @package Blaze
  * @subpackage codeigniter
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com> 
  */
 class Codeigniter_generate extends Blaze_Processor
 {
@@ -46,17 +46,21 @@ class Codeigniter_generate extends Blaze_Processor
             return false;
         }
 
-        $template = new Blaze_Template(dirname(__FILE__) . "/templates/");
-        $model_tmpl = $template->load("model.tmpl");
-
-                
-        
-        
         // Minimum required is just the class name to generate the file.
         $class_tolower = strtolower(array_shift($arguments));
         $class_ucfirst = ucfirst($class_tolower);
-        $filename = CODEIGNITER_PATH . "/application/controllers/";
-                
+        $filename = CODEIGNITER_PATH . "/application/models/";
+        
+        $template = new Blaze_Template(dirname(__FILE__) . "/templates/");
+        $model_tmpl = $template->load("model.tmpl");
+
+        $inputs = array("%CLASS_UCFIRST%", "%CLASS_TOLOWER%");
+        $outputs = array($class_ucfirst, $class_tolower);
+        $filename .= $class_tolower . ".php";
+        
+        $template->save($filename, $class_tmpl, $inputs, $outputs);
+
+        return true;
     }
     
     public function controller($arguments)
@@ -99,6 +103,14 @@ class Codeigniter_generate extends Blaze_Processor
 
         return true;
     } 
+
+    public function view($arguments)
+    {
+        if (count($arguments) === 0)
+        {
+            return false;
+        }
+    }
     
     public function help()
     {

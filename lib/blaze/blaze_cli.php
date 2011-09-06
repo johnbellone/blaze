@@ -11,7 +11,7 @@ require_once "blaze_loader.php";
  * Main application object that needs to be bootstraped.
  *
  * @package Blaze
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com>
  */
 class Blaze_CLI 
 {

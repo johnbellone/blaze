@@ -4,7 +4,7 @@
  * Object representing a framework command processor.
  *
  * @package Blaze
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com>
  */
 class Blaze_Processor
 {

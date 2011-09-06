@@ -6,7 +6,7 @@
  * Handles class loading for engine processors.
  *
  * @package Blaze
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com>
  */
 class Blaze_Engine
 {

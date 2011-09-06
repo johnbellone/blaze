@@ -4,7 +4,7 @@
  * Template loader.
  *
  * @package Blaze
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com>
  */
 class Blaze_Template
 {

@@ -9,7 +9,7 @@ require_once BLAZE_PATH . "blaze_engine.php";
  *
  * @package Blaze
  * @subpackage codeigniter
- * @author John Bellone
+ * @author John Bellone <jb@thunkbrightly.com>
  */
 class Engine_codeigniter extends Blaze_Engine
 {
