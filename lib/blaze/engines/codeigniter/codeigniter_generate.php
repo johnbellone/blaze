@@ -58,7 +58,7 @@ class Codeigniter_generate extends Blaze_Processor
         $outputs = array($class_ucfirst, $class_tolower);
         $filename .= $class_tolower . ".php";
         
-        $template->save($filename, $class_tmpl, $inputs, $outputs);
+        $template->save($filename, $model_tmpl, $inputs, $outputs);
 
         return true;
     }
