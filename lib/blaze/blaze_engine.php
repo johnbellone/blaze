@@ -17,7 +17,7 @@ class Blaze_Engine
         $class = strtolower($class);
         $processor_dir = dirname(__FILE__) . '/engines/' . $this->name;
         $filename = $processor_dir . '/' . $this->name . '_' . $class . '.php';
-        
+
         if (is_file($filename))
         {
             include_once($filename);

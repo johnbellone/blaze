@@ -13,36 +13,36 @@ require_once BLAZE_PATH . "blaze_engine.php";
  */
 class Engine_codeigniter extends Blaze_Engine
 {
-    private $shortcuts = array("g" => "generate");
-    
-    public static function is_framework()
-    {
-        return is_file(CODEIGNITER_PATH . "/system/core/CodeIgniter.php");
-    }
+	private $shortcuts = array("g" => "generate");
+	
+	public static function is_framework()
+	{
+		return is_file(CODEIGNITER_PATH . "/system/core/CodeIgniter.php");
+	}
 
-    public function __construct()
-    {
-        $this->name = "codeigniter";
-    }
+	public function __construct()
+	{
+		$this->name = "codeigniter";
+	}
 
-    public function help()
-    {
-        
-    }
+	public function help()
+	{
 
-    public function execute($method, $arguments)
-    {
-        if (array_key_exists($method, $this->shortcuts))
-        {
-            $method = $this->shortcuts[$method];
-        }
+	}
 
-        if (($processor = parent::load_class($method)) == false)
-        {
-            $this->help();
-            return false;
-        }
+	public function execute($method, $arguments)
+	{
+		if (array_key_exists($method, $this->shortcuts))
+		{
+			$method = $this->shortcuts[$method];
+		}
 
-        return $processor->execute($arguments);
-    }
+		if (($processor = parent::load_class($method)) == false)
+		{
+			$this->help();
+			return false;
+		}
+		
+		return $processor->execute($arguments);
+	}
 }

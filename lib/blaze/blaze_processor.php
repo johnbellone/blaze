@@ -20,6 +20,16 @@ class Blaze_Processor
             }
         }
 
+        // Execute the help on the actual extended object; if a method
+        // does not exist then we will execute on this base object. But
+        // there should always be a help method.
+        $this->help();
         return false;
+    }
+    
+    public function help()
+    {
+        // TODO: Something meaningful would be amazing here.
+        echo "Sorry, there's nothing to help you with.";
     }
 }

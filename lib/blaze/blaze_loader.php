@@ -70,12 +70,12 @@ class Blaze_Loader
 
 	public function execute($method, $arguments, $config)
     {
-        if ($config["help"] === true)
+        if (!isset($method) || array_key_exists("help", $config) === true)
         {
             $this->help();
             return false;
         }
-                       
+
         if (method_exists($this->adapter, $method))
         {
             return $this->adapter->{$method}($arguments);
@@ -89,6 +89,10 @@ class Blaze_Loader
         if (method_exists($this->adapter, "help") == true)
         {
             $this->adapter->help();
+        }
+        else
+        {
+          // TODO: Put something basic here.
         }
     }
 }
