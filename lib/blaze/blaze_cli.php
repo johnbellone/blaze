@@ -25,11 +25,6 @@ class Blaze_CLI
 
 	public function execute($arguments)
     {
-		if (!isset($arguments[0]))
-        {
-			throw new Exception("Invaild argument count.");
-		}
-
         $config = Blaze_Utils::parse_arguments($arguments);        
 		array_shift($arguments);
 		$command = array_shift($arguments);

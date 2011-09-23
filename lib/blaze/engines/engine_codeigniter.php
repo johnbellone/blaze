@@ -27,7 +27,13 @@ class Engine_codeigniter extends Blaze_Engine
 
 	public function help()
 	{
+		echo <<<HELP
+Usage: php tools/blaze COMMAND [ARGS]
 
+The most common commands are:
+        generate        Generate new code (alias: "g")
+
+HELP;
 	}
 
 	public function execute($method, $arguments)

@@ -64,7 +64,7 @@ class Blaze_Loader
 
         if (!isset($this->adapter))
         {
-            throw new Exception("Unable to determine engine");
+            throw new Exception("Please make sure that Blaze is installed correctly.");
         }
 	}
 
@@ -81,6 +81,7 @@ class Blaze_Loader
             return $this->adapter->{$method}($arguments);
         }
 
+        // Mainly for the aliases
         return $this->adapter->execute($method, $arguments);
 	}
 
@@ -92,7 +93,7 @@ class Blaze_Loader
         }
         else
         {
-          // TODO: Put something basic here.
+                
         }
     }
 }

@@ -118,7 +118,6 @@ class Codeigniter_generate extends Blaze_Processor
 	public function help()
 	{
 		echo <<<HELP
-Usage:		
 HELP;
 		  }
 }
