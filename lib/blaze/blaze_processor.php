@@ -29,7 +29,6 @@ class Blaze_Processor
     
     public function help()
     {
-        // TODO: Something meaningful would be amazing here.
-        echo "Sorry, there's nothing to help you with.";
+        return false;
     }
 }

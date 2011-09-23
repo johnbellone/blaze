@@ -118,6 +118,13 @@ class Codeigniter_generate extends Blaze_Processor
 	public function help()
 	{
 		echo <<<HELP
+Usage: php tools/blaze generate [ARGS]
+
+The following arguments will generate CodeIgniter classes:
+        controller      Generates a stub controller
+        model           Generates a stub model
+        view            Generates a stub view
+
 HELP;
 		  }
 }

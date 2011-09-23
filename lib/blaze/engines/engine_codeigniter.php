@@ -48,7 +48,7 @@ HELP;
 			$this->help();
 			return false;
 		}
-		
+        
 		return $processor->execute($arguments);
 	}
 }
