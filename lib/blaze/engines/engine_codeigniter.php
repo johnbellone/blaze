@@ -4,36 +4,51 @@
 
 require_once BLAZE_PATH . "blaze_engine.php";
 
+/*
+ * Engine for Blaze to support CodeIgniter framework.
+ *
+ * @package Blaze
+ * @subpackage codeigniter
+ * @author John Bellone <jb@thunkbrightly.com>
+ */
 class Engine_codeigniter extends Blaze_Engine
 {
-    public static function is_framework()
-    {
-        if (!file_exists(CODEIGNITER_PATH))
-        {
-            return false;
-        }
+	private $shortcuts = array("g" => "generate");
+	
+	public static function is_framework()
+	{
+		return is_file(CODEIGNITER_PATH . "/system/core/CodeIgniter.php");
+	}
 
-        return is_file(CODEIGNITER_PATH . "/system/core/CodeIgniter.php");
-    }
+	public function __construct()
+	{
+		$this->name = "codeigniter";
+	}
 
-    public function __construct()
-    {
-        $this->name = "codeigniter";
-    }
+	public function help()
+	{
+		echo <<<HELP
+Usage: php tools/blaze COMMAND [ARGS]
 
-    public function help()
-    {
+The most common commands are:
+        generate        Generate new code (alias: "g")
 
-    }
+HELP;
+	}
 
-    public function execute($method, $arguments)
-    {
-        if (($processor = parent::load_processor($method)) == false)
-        {
-            throw new Exception("Invalid commend. Please check help.");
-            return false;
-        }
+	public function execute($method, $arguments)
+	{
+		if (array_key_exists($method, $this->shortcuts))
+		{
+			$method = $this->shortcuts[$method];
+		}
 
-        return $processor->execute($arguments);
-    }
+		if (($processor = parent::load_class($method)) == false)
+		{
+			$this->help();
+			return false;
+		}
+        
+		return $processor->execute($arguments);
+	}
 }

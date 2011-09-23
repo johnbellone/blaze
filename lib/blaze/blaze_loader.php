@@ -1,5 +1,13 @@
 <?php if (! defined('BLAZE_PATH')) exit("No direct script access allowed");
 
+/*
+ * Engine class loader.
+ *
+ * Object handles class loading and framework enumeration.
+ *
+ * @package Blaze
+ * @author John Bellone <jb@thunkbrightly.com>
+ */
 class Blaze_Loader 
 {
     protected $_classes = array();
@@ -15,7 +23,7 @@ class Blaze_Loader
             }
         
             $engine_dir = dirname(__FILE__) . "/engines";
-            $reg = "/engine_([a-zA-Z0-9]+).php/";
+            $reg = "/^engine_([a-zA-Z0-9]+).php/";
             
             if (is_dir($engine_dir) && ($dh = opendir($engine_dir)))
             {
@@ -56,23 +64,24 @@ class Blaze_Loader
 
         if (!isset($this->adapter))
         {
-            throw new Exception("Unable to determine engine");
+            throw new Exception("Please make sure that Blaze is installed correctly.");
         }
 	}
 
 	public function execute($method, $arguments, $config)
     {
-        if ($config["help"] === true)
+        if (!isset($method) || array_key_exists("help", $config) === true)
         {
             $this->help();
             return false;
         }
-                       
+
         if (method_exists($this->adapter, $method))
         {
             return $this->adapter->{$method}($arguments);
         }
 
+        // Mainly for the aliases
         return $this->adapter->execute($method, $arguments);
 	}
 
@@ -81,6 +90,10 @@ class Blaze_Loader
         if (method_exists($this->adapter, "help") == true)
         {
             $this->adapter->help();
+        }
+        else
+        {
+                
         }
     }
 }

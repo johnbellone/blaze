@@ -1,16 +1,21 @@
 #!/usr/bin/env php
-
 <?php 
 ! defined('TOOLS_PATH') AND define('TOOLS_PATH', dirname(__FILE__) . '/');
 
+define("CODEIGNITER_PATH", "/Users/jbellone/Code/codeigniter");
+
 require_once "lib/blaze/blaze_cli.php";
+
+/*
+ * Bootstrap Blaze.
+ */
 
 try {
     $cli = new Blaze_CLI();
     $cli->execute($argv);
 }
 catch (Exception $e) {
+    // May want to echo something here if we're going to use error messages.
     var_dump($e);
 }
 
-?>
