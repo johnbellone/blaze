@@ -2,7 +2,7 @@
 <?php 
 ! defined('TOOLS_PATH') AND define('TOOLS_PATH', dirname(__FILE__) . '/');
 
-define("CODEIGNITER_PATH", "/Users/jbellone/Code/codeigniter");
+define("CODEIGNITER_PATH", getcwd());
 
 require_once "lib/blaze/blaze_cli.php";
 
